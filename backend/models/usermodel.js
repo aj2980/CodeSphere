@@ -1,24 +1,20 @@
-const mongoose=require('mongoose')
+const mongoose = require('mongoose');
 
-const userschema=mongoose.Schema(
-    {
-        fullname:{
-            type:String,
-            require:true,
-        },
-        email:{
-            type:String,
-            require:true,
-        },
-        password:{
-            type:String,
-            require:true,
-
-        },
-        date:{
-            type:Date,
-            default:Date.now,
-        }
+const userSchema = new mongoose.Schema({
+    fullname: {
+        type: String,
+        required: true, // ✅ Fixed "require" to "required"
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true, // Ensures no duplicate emails
+    },
+    password: {
+        type: String,
+        required: true,
     }
-)
-module.exports=mongoose.model('User',userschema)
+}, { timestamps: true }); // ✅ Adds createdAt & updatedAt automatically
+
+const userModel = mongoose.model('User', userSchema);
+module.exports = userModel; // ✅ Ensure proper export
