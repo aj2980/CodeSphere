@@ -65,6 +65,12 @@ exports.login = async (req, res) => {
     bcrypt.compare(pwd, user.password, function (err, result) {
       if (result) {
         let token = jwt.sign({ userId: user._id }, secret);
+        res.cookie("token", token, {
+          httpOnly: true, // Prevents JavaScript access
+          secure: process.env.NODE_ENV === "production", // Works only on HTTPS in production
+          sameSite: "Strict", // Prevents CSRF attacks
+          maxAge: 24 * 60 * 60 * 1000 // 1 day expiration
+      });
         return res.status(200).json({ success: true, msg: "User logged in", token });
       } else {
         return res.status(401).json({ success: false, msg: "Invalid password" });
@@ -185,5 +191,45 @@ exports.deleteProject = async (req, res) => {
 
   } catch (error) {
     return res.status(500).json({ success: false, msg: error.message });
+  }
+};
+
+// UPDATE proj
+
+exports.editProject = async (req, res) => {
+  try {
+
+    let {token, projectId, name} = req.body;
+    let decoded = jwt.verify(token, secret);
+    let user = await usermodel.findOne({ _id: decoded.userId });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        msg: "User not found"
+      });
+    };
+
+    let project = await projectmodel.findOne({ _id: projectId });
+    if(project){
+      project.name = name;
+      await project.save();
+      return res.status(200).json({
+        success: true,
+        msg: "Project edited successfully"
+      })
+    }
+    else{
+      return res.status(404).json({
+        success: false,
+        msg: "Project not found"
+      })
+    }
+
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      msg: error.message
+    })
   }
 };

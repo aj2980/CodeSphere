@@ -18,7 +18,11 @@ app.set('view engine', 'ejs');
 
 connectDB()
 
-app.use(cors())
+app.use(cors({
+  origin: "http://localhost:5173", // ✅ Only allow frontend origin
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true // ✅ Allow cookies & authentication headers
+}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
