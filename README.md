@@ -36,7 +36,7 @@ Follow these steps to set up the project locally:
 
 1️⃣ Clone the Repository
 
-git clone https://github.com/yourusername/multiple-code-compiler.git
+git clone [https://github.com/yourusername/multiple-code-compiler.git](https://github.com/aj2980/CodeSphere.git)
 cd multiple-code-compiler
 
 2️⃣ Install Dependencies
@@ -107,9 +107,7 @@ Fetch saved projects
 
 We welcome contributions! Feel free to submit issues or create pull requests.
 
-📜 License
 
-This project is licensed under the MIT License.
 
 Developed with ❤️ by Abhishek
 
