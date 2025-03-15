@@ -30,7 +30,11 @@ const Login = () => {
     .then(res => res.json())
     .then(data => {
       if (data.success) {
-        console.log("Login successful, checking cookies..."); // ✅ Debugging log
+        console.log("Login successful, checking cookies..."); 
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("isLoggedIn", true);
+        // ✅ Debugging log
+        setTimeout(() => { navigate("/") }, 2000);
         window.location.href = "/";
       } else {
         toast.error(data.msg);

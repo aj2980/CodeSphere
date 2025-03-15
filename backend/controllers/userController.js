@@ -112,7 +112,9 @@ exports.createproj = async (req, res) => {
 exports.saveproj = async (req, res) => {
   try {
     let { token, projectid, code } = req.body;
-    console.log("DATA: ", token, projectid, code);
+    console.log("DATA: ", token);
+    console.log( "projectid:",projectid);
+    console.log(code);
     let decoded = jwt.verify(token, secret);
     let user = await usermodel.findOne({ _id: decoded.userId });
 

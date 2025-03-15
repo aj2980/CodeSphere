@@ -16,6 +16,11 @@ const Navbar = () => {
         <Link className="transition-all hover:text-blue-500 text-white">About</Link>
         <Link className="transition-all hover:text-blue-500 text-white">Services</Link>
         <Link className="transition-all hover:text-blue-500 text-white">Contact</Link>
+        <button onClick={()=>{
+            localStorage.removeItem("token");
+            localStorage.removeItem("isLoggedIn");
+            window.location.reload();
+          }} className="btnNormal bg-red-500 transition-all hover:bg-red-600 px-[20px]">Logout</button>
       </div>
     </div>
   );
