@@ -49,3 +49,35 @@ body{
   margin-top: 10px;
   border-radius: 30px;
 }
+
+.chatbot-container {
+  width: 300px;
+  height: 400px;
+  background-color: #1e1e1f;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.chatbot-header {
+  background-color: #27272a;
+  padding: 10px;
+  border-radius: 8px 8px 0 0;
+}
+
+.chatbot-messages {
+  padding: 10px;
+  height: 300px;
+  overflow-y: auto;
+}
+
+.chatbot-input {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}
+.gutter {
+  background-color: #222;
+  cursor: col-resize;
+  width: 8px;
+}
