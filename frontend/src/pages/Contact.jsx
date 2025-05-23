@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 
 const SERVICE_ID = "service_3aqn17y";
@@ -8,18 +8,32 @@ const PUBLIC_KEY = "mCzdbRT03cuKiOI6D";
 
 const Contact = () => {
   const formRef = useRef();
+  const [form, setForm] = useState({
+    user_name: "",
+    user_email: "",
+    message: "",
+  });
+  const [sending, setSending] = useState(false);
+
+  const handleChange = e => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
+    setSending(true);
     emailjs
       .sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY)
       .then(
         () => {
           alert("Thank you for contacting us! We'll get back to you soon.");
+          setForm({ user_name: "", user_email: "", message: "" });
           formRef.current.reset();
+          setSending(false);
         },
-        error => {
+        () => {
           alert("Something went wrong. Please try again later.");
+          setSending(false);
         }
       );
   };
@@ -29,7 +43,7 @@ const Contact = () => {
       <Navbar />
       <div className="min-h-screen bg-[#0f0f11] text-white px-4 py-16 flex flex-col items-center">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-blue-400 mb-4">Contact Us</h1>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-blue-400 mb-4 drop-shadow-lg">Contact Us</h1>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
             Have questions, feedback, or need support? We'd love to hear from you!
           </p>
@@ -37,47 +51,63 @@ const Contact = () => {
 
         <form
           ref={formRef}
-          className="bg-[#1e1e24] border border-gray-700 rounded-2xl shadow-2xl p-8 w-full max-w-screen-md space-y-6"
+           className="contact-form-container w-full max-w-screen-md space-y-6"
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col gap-2">
             <label className="text-gray-400 text-sm font-medium">Your Name</label>
-            <input
-              type="text"
-              name="user_name"
-              className="p-3 rounded-lg bg-[#121217] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-              placeholder="Enter your name"
-              required
-            />
+            <div className="inputBox">
+              <input
+                type="text"
+                name="user_name"
+                className="bg-transparent border-none outline-none text-white w-full"
+                placeholder="Enter your name"
+                required
+                value={form.user_name}
+                onChange={handleChange}
+                autoComplete="off"
+              />
+            </div>
           </div>
 
           <div className="flex flex-col gap-2">
             <label className="text-gray-400 text-sm font-medium">Your Email</label>
-            <input
-              type="email"
-              name="user_email"
-              className="p-3 rounded-lg bg-[#121217] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-              placeholder="Enter your email"
-              required
-            />
+            <div className="inputBox">
+              <input
+                type="email"
+                name="user_email"
+                className="bg-transparent border-none outline-none text-white w-full"
+                placeholder="Enter your email"
+                required
+                value={form.user_email}
+                onChange={handleChange}
+                autoComplete="off"
+              />
+            </div>
           </div>
 
           <div className="flex flex-col gap-2">
             <label className="text-gray-400 text-sm font-medium">Your Message</label>
-            <textarea
-              name="message"
-              className="p-3 rounded-lg bg-[#121217] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-              placeholder="Write your message..."
-              rows={6}
-              required
-            />
+            <div className="inputBox">
+              <textarea
+                name="message"
+                className="bg-transparent border-none outline-none text-white w-full resize-none"
+                placeholder="Write your message..."
+                rows={6}
+                required
+                value={form.message}
+                onChange={handleChange}
+                autoComplete="off"
+              />
+            </div>
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition shadow-md"
+            className="btnNormal mt-2"
+            disabled={sending}
           >
-            Send Message
+            {sending ? "Sending..." : "Send Message"}
           </button>
         </form>
 

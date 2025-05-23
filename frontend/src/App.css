@@ -1,83 +1,476 @@
-
-body{
-  background-color: #000000;
-  color: #fff;
+/* Enhanced Dark Theme Styles */
+body {
+  background: #000000; /* Set background to black */
+  color: #e4e7eb;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-.inputBox{
+/* Enhanced Input Styles */
+.inputBox {
   display: flex;
   align-items: center;
-  background-color: #000000;
+  background: linear-gradient(145deg, #1e1e2e, #262640);
   width: 100%;
-  margin-top: 10px;
-  border-radius: 30px;
+  margin-top: 15px;
+  border-radius: 16px;
+  border: 1px solid #2a2a3e;
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-.inputBox input{
+.inputBox::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #64748b, transparent);
+  opacity: 0.3;
+}
+
+.inputBox:hover {
+  border-color: #3b82f6;
+  box-shadow: 
+    0 8px 25px rgba(59, 130, 246, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.inputBox:focus-within {
+  border-color: #60a5fa;
+  box-shadow: 
+    0 0 0 3px rgba(59, 130, 246, 0.1),
+    0 8px 25px rgba(59, 130, 246, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.inputBox input {
   flex: 1;
-  padding: 15px;
+  padding: 18px 20px;
   border: none;
   outline: none;
-  background-color: transparent;
-  color: #fff;
-  border-radius: 30px;
+  background: transparent;
+  color: #f8fafc;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
-.btnNormal{
-  padding: 10px;
+.inputBox input::placeholder {
+  color: #64748b;
+  font-weight: 300;
+}
+
+.inputBox input:focus::placeholder {
+  color: #94a3b8;
+  transform: translateX(4px);
+  transition: all 0.3s ease;
+}
+
+/* Enhanced Button Styles */
+.btnNormal {
+  padding: 16px 24px;
   width: 100%;
   border: none;
   outline: none;
-  border-radius: 5px;
+  border-radius: 12px;
   cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.025em;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: #ffffff;
+  box-shadow: 
+    0 4px 15px rgba(59, 130, 246, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-.projects .project{
-  margin-top: 10px;
+.btnNormal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btnNormal:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 25px rgba(59, 130, 246, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+}
+
+.btnNormal:hover::before {
+  left: 100%;
+}
+
+.btnNormal:active {
+  transform: translateY(0);
+  box-shadow: 
+    0 4px 15px rgba(59, 130, 246, 0.3),
+    inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced Project Cards */
+.projects .project {
+  margin-top: 15px;
   cursor: pointer;
-  transition: .3s;
-  border: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #2a2a3e;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #1a1a2e, #23233a);
+  padding: 20px;
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
 }
 
-.projects .project:hover{
-  background-color: #000000;
-  border: 1px solid #0f0e0e;
+.projects .project::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.css-b62m3t-container{
+.projects .project:hover {
+  background: linear-gradient(145deg, #232340, #2a2a48);
+  border-color: #3b82f6;
+  transform: translateY(-4px);
+  box-shadow: 
+    0 12px 35px rgba(59, 130, 246, 0.15),
+    0 4px 15px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.projects .project:hover::before {
+  opacity: 1;
+}
+
+/* Enhanced Select Dropdown */
+.css-b62m3t-container {
   width: 100% !important;
-  margin-top: 10px;
-  border-radius: 30px;
+  margin-top: 15px;
+  border-radius: 16px;
 }
 
+.css-control {
+  background: linear-gradient(145deg, #1e1e2e, #262640) !important;
+  border: 1px solid #2a2a3e !important;
+  border-radius: 16px !important;
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.css-control:hover {
+  border-color: #3b82f6 !important;
+  box-shadow: 
+    0 8px 25px rgba(59, 130, 246, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Enhanced Chatbot Styles */
 .chatbot-container {
-  width: 300px;
-  height: 400px;
-  background-color: #1e1e1f;
-  color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 380px;
+  height: 520px;
+  background: linear-gradient(145deg, #1a1a2e 0%, #23233a 50%, #2a2a48 100%);
+  color: #f1f5f9;
+  border-radius: 24px;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #2a2a48;
+  backdrop-filter: blur(20px);
+  position: relative;
+}
+
+.chatbot-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #64748b, transparent);
+  opacity: 0.5;
 }
 
 .chatbot-header {
-  background-color: #27272a;
-  padding: 10px;
-  border-radius: 8px 8px 0 0;
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  padding: 24px;
+  border-radius: 24px 24px 0 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.025em;
 }
 
 .chatbot-messages {
-  padding: 10px;
-  height: 300px;
+  padding: 24px 20px;
+  flex: 1;
   overflow-y: auto;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: #374151 transparent;
+}
+
+.chatbot-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chatbot-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chatbot-messages::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #374151, #4b5563);
+  border-radius: 3px;
+}
+
+.chatbot-message {
+  padding: 16px 20px;
+  border-radius: 16px;
+  max-width: 85%;
+  font-size: 15px;
+  line-height: 1.6;
+  word-break: break-word;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  animation: messageSlide 0.3s ease-out;
+}
+
+@keyframes messageSlide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chatbot-message.user {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: #ffffff;
+  align-self: flex-end;
+  box-shadow: 
+    0 4px 15px rgba(59, 130, 246, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.chatbot-message.bot {
+  background: linear-gradient(145deg, #374151, #4b5563);
+  color: #f1f5f9;
+  align-self: flex-start;
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .chatbot-input {
   display: flex;
-  gap: 10px;
-  padding: 10px;
+  gap: 12px;
+  padding: 20px;
+  background: linear-gradient(145deg, #1e1e2e, #262640);
+  border-radius: 0 0 24px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+.chatbot-input input {
+  flex: 1;
+  padding: 16px 20px;
+  border-radius: 16px;
+  border: 1px solid #374151;
+  background: linear-gradient(145deg, #23233a, #2a2a48);
+  color: #f1f5f9;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chatbot-input input:focus {
+  border-color: #3b82f6;
+  background: linear-gradient(145deg, #2a2a48, #323250);
+  box-shadow: 
+    0 0 0 3px rgba(59, 130, 246, 0.1),
+    inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chatbot-input input::placeholder {
+  color: #9ca3af;
+}
+
+.chatbot-input button {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 16px;
+  padding: 16px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 4px 15px rgba(59, 130, 246, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  font-size: 15px;
+  letter-spacing: 0.025em;
+}
+
+.chatbot-input button:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 6px 20px rgba(59, 130, 246, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.chatbot-input button:active {
+  transform: translateY(0);
+}
+
+/* Enhanced Gutter */
 .gutter {
-  background-color: #222;
+  background: linear-gradient(180deg, #374151 0%, #4b5563 50%, #374151 100%);
   cursor: col-resize;
+  width: 10px;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.gutter:hover {
+  background: linear-gradient(180deg, #4b5563 0%, #6b7280 50%, #4b5563 100%);
+  width: 12px;
+  box-shadow: 
+    inset 0 0 4px rgba(0, 0, 0, 0.3),
+    0 0 8px rgba(59, 130, 246, 0.2);
+}
+
+/* Additional Enhancements */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #4b5563 transparent;
+}
+
+*::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4b5563, #6b7280);
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #6b7280, #9ca3af);
+}
+
+/* Subtle animations for a richer feel */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.projects .project,
+.inputBox,
+.btnNormal,
+.about-card-animate {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Dark theme selection styles */
+::selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: #ffffff;
+}
+
+
+/* Contact Form Container */
+.contact-form-container {
+  background: linear-gradient(145deg, #1e1e24, #23233a 80%);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(59,130,246,0.08), 0 1.5px 0 rgba(255,255,255,0.04) inset;
+  border: 1px solid #23233a;
+  padding: 2.5rem 2rem;
+  animation: fadeInUp 0.7s;
+}
+
+/* Contact Textarea Styling */
+.inputBox textarea {
+  min-height: 120px;
+  max-height: 260px;
+  padding: 18px 20px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #f8fafc;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  resize: vertical;
+}
+
+.inputBox textarea::placeholder {
+  color: #64748b;
+  font-weight: 300;
+}
+
+.inputBox textarea:focus::placeholder {
+  color: #94a3b8;
+  transition: all 0.3s ease;
 }

@@ -46,6 +46,7 @@ app.use('/users', usersRouter);
 app.post('/analyzeCode', async (req, res) => {
   try {
     const { query } = req.body;
+     console.log("Received query:", query); 
 
     if (!query) {
       return res.status(400).json({ success: false, msg: "Query is required." });
@@ -55,6 +56,7 @@ app.post('/analyzeCode', async (req, res) => {
       model: "gemini-2.0-flash",
       contents: query,
     });
+    console.log("AI raw response:", response); // See the full AI response
 
     // Extract raw suggestion
     const suggestion =
@@ -62,12 +64,14 @@ app.post('/analyzeCode', async (req, res) => {
       (response.candidates && response.candidates[0]?.content?.parts?.[0]?.text) ||
       "No suggestion found.";
 
-    // ✅ Format the suggestion to render as HTML in frontend
-    const formatted = suggestion
-      .replace(/\n/g, "<br>")
-      .replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>');
+    console.log("AI suggestion:", suggestion); // See the extracted suggestion
 
-    // ✅ Send the formatted suggestion
+
+
+const formatted = `\`\`\`\n${suggestion.trim()}\n\`\`\``;
+
+
+    // ✅ Send the formatted suggestion (with code block)
     res.status(200).json({ success: true, suggestion: formatted });
 
   } catch (error) {
