@@ -44,9 +44,13 @@ app.use('/users', usersRouter);
 
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+app.get('*',(req,res)=>{
+  res.sendFile(path.join(__dirname,"../frontend/dist/index.html"),(err)=>{
+  if (err){
+    res.status(500).send(err);
+  }
 });
+})
 
 // Updated analyzeCode Endpoint using Google Gemini
 app.post('/analyzeCode', async (req, res) => {
