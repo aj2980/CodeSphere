@@ -1,4 +1,5 @@
 import Navbar from "../components/Navbar";
+import logo from "../images/logo.jpg";
 
 const benefits = [
 	{
@@ -37,6 +38,11 @@ const About = () => (
 	<>
 		<Navbar />
 		<div className="flex flex-col items-center min-h-screen bg-[#18181b] text-white px-4 py-10">
+			<img
+				src={logo}
+				alt="CodeSphere Logo"
+				className="about-logo mb-8"
+			/>
 			<h1 className="text-4xl font-bold mb-4 text-blue-400 text-center drop-shadow-lg">
 				About CodeSphere
 			</h1>

@@ -1,5 +1,13 @@
 {
   "dependencies": {
+    "concurrently": "^9.1.2",
     "express-generator": "^4.16.1"
+  },
+  "scripts": {
+    "frontend": "cd frontend && npm run dev",
+    "backend": "cd backend && nodemon app.js",
+    "dev": "concurrently -n frontend,backend -c blue,red \"npm run frontend\" \"npm run backend\"",
+    "build": "npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "node backend/app.js"
   }
 }

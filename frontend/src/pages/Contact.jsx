@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar";
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
+import logo from "../images/logo.jpg";
 
 const SERVICE_ID = "service_3aqn17y";
 const TEMPLATE_ID = "template_58sjxaj";
@@ -41,8 +42,16 @@ const Contact = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-[#0f0f11] text-white px-4 py-16 flex flex-col items-center">
-        <div className="text-center mb-12">
+      <div className="min-h-screen bg-[#0f0f11] text-white px-4 py-16 flex flex-col items-center relative overflow-hidden">
+        {/* Background Logo */}
+        <img
+          src={logo}
+          alt="Logo background"
+          className="absolute z-0 opacity-10 w-[500px] h-[500px] object-contain top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none"
+          aria-hidden="true"
+        />
+        {/* Foreground content */}
+        <div className="text-center mb-12 z-10 relative">
           <h1 className="text-4xl md:text-5xl font-extrabold text-blue-400 mb-4 drop-shadow-lg">Contact Us</h1>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
             Have questions, feedback, or need support? We'd love to hear from you!
