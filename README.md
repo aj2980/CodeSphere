@@ -118,5 +118,4 @@ cd frontend && npm start # Frontend
 4. Push to the branch
 5. Open a Pull Request
 
-Developed with ❤️ by Abhishek Jha
 
