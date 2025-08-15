@@ -41,18 +41,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// API routes (specific routes first)
+app.use('/api', indexRouter);
+app.use('/api/users', usersRouter);
 
+// Serve static files from React build
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-app.get('*',(req,res)=>{
-  res.sendFile(path.join(__dirname,"../frontend/dist/index.html"),(err)=>{
-  if (err){
-    res.status(500).send(err);
-  }
+// Catch-all route to serve React app (must be last)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"), (err) => {
+    if (err) {
+      console.error("Error serving React app:", err);
+      res.status(500).send("Error loading application");
+    }
+  });
 });
-})
 
 // Updated analyzeCode Endpoint using Google Gemini
 app.post('/analyzeCode', async (req, res) => {

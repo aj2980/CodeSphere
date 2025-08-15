@@ -17,8 +17,12 @@ services:
         value: production
       - key: MONGODB_URI
         sync: false
+        # IMPORTANT: You must set this manually in Render dashboard
+        # Get your MongoDB connection string from MongoDB Atlas or Render MongoDB
       - key: GEMINI_API_KEY
         sync: false
+        # IMPORTANT: You must set this manually in Render dashboard
+        # Get your API key from https://makersuite.google.com/app/apikey
       - key: FRONTEND_URL
         value: https://codesphere.onrender.com
       - key: PORT
