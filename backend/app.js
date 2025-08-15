@@ -30,7 +30,7 @@ connectDB();
 
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? [process.env.FRONTEND_URL, 'https://your-app-name.onrender.com'] 
+    ? [process.env.FRONTEND_URL, 'https://codesphere-w8pb.onrender.com', 'https://codesphere.onrender.com'] 
     : "http://localhost:5173",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
@@ -44,6 +44,41 @@ app.use(express.static(path.join(__dirname, 'public')));
 // API routes (specific routes first)
 app.use('/api', indexRouter);
 app.use('/api/users', usersRouter);
+
+// Updated analyzeCode Endpoint using Google Gemini (moved to /api route)
+app.post('/api/analyzeCode', async (req, res) => {
+  try {
+    const { query } = req.body;
+     console.log("Received query:", query); 
+
+    if (!query) {
+      return res.status(400).json({ success: false, msg: "Query is required." });
+    }
+
+    const response = await ai.models.generateContent({
+      model: "gemini-2.0-flash",
+      contents: query,
+    });
+    console.log("AI raw response:", response); // See the full AI response
+
+    // Extract raw suggestion
+    const suggestion =
+      response.text ||
+      (response.candidates && response.candidates[0]?.content?.parts?.[0]?.text) ||
+      "No suggestion found.";
+
+    console.log("AI suggestion:", suggestion); // See the extracted suggestion
+
+    const formatted = `\`\`\`\n${suggestion.trim()}\n\`\`\``;
+
+    // ✅ Send the formatted suggestion (with code block)
+    res.status(200).json({ success: true, suggestion: formatted });
+
+  } catch (error) {
+    console.error("Error analyzing code:", error);
+    res.status(500).json({ success: false, msg: "Internal server error." });
+  }
+});
 
 // Serve static files from React build
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
@@ -84,44 +119,6 @@ app.get('*', (req, res) => {
       path: indexPath,
       suggestion: "Check the /debug endpoint for more information"
     });
-  }
-});
-
-// Updated analyzeCode Endpoint using Google Gemini
-app.post('/analyzeCode', async (req, res) => {
-  try {
-    const { query } = req.body;
-     console.log("Received query:", query); 
-
-    if (!query) {
-      return res.status(400).json({ success: false, msg: "Query is required." });
-    }
-
-    const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash",
-      contents: query,
-    });
-    console.log("AI raw response:", response); // See the full AI response
-
-    // Extract raw suggestion
-    const suggestion =
-      response.text ||
-      (response.candidates && response.candidates[0]?.content?.parts?.[0]?.text) ||
-      "No suggestion found.";
-
-    console.log("AI suggestion:", suggestion); // See the extracted suggestion
-
-
-
-const formatted = `\`\`\`\n${suggestion.trim()}\n\`\`\``;
-
-
-    // ✅ Send the formatted suggestion (with code block)
-    res.status(200).json({ success: true, suggestion: formatted });
-
-  } catch (error) {
-    console.error("Error analyzing code:", error);
-    res.status(500).json({ success: false, msg: "Internal server error." });
   }
 });
 
