@@ -48,14 +48,43 @@ app.use('/api/users', usersRouter);
 // Serve static files from React build
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
+// Debug route to check build status
+app.get('/debug', (req, res) => {
+  const indexPath = path.join(__dirname, "../frontend/dist/index.html");
+  const distPath = path.join(__dirname, "../frontend/dist");
+  
+  res.json({
+    message: "Debug information",
+    indexPath: indexPath,
+    distPath: distPath,
+    indexPathExists: require('fs').existsSync(indexPath),
+    distPathExists: require('fs').existsSync(distPath),
+    currentDir: __dirname,
+    filesInDist: require('fs').existsSync(distPath) ? require('fs').readdirSync(distPath) : "Directory not found"
+  });
+});
+
 // Catch-all route to serve React app (must be last)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"), (err) => {
-    if (err) {
-      console.error("Error serving React app:", err);
-      res.status(500).send("Error loading application");
-    }
-  });
+  const indexPath = path.join(__dirname, "../frontend/dist/index.html");
+  
+  // Check if the file exists before trying to serve it
+  if (require('fs').existsSync(indexPath)) {
+    res.sendFile(indexPath, (err) => {
+      if (err) {
+        console.error("Error serving React app:", err);
+        res.status(500).send("Error loading application");
+      }
+    });
+  } else {
+    console.error("Frontend build not found at:", indexPath);
+    res.status(500).json({
+      error: "Frontend build not found",
+      message: "The React application has not been built. Please check the build process.",
+      path: indexPath,
+      suggestion: "Check the /debug endpoint for more information"
+    });
+  }
 });
 
 // Updated analyzeCode Endpoint using Google Gemini

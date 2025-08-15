@@ -7,8 +7,12 @@ services:
     buildCommand: |
       echo "Installing root dependencies..."
       npm install
-      echo "Building application..."
+      echo "Installing frontend dependencies..."
+      cd frontend && npm install
+      echo "Building frontend..."
       npm run build
+      echo "Installing backend dependencies..."
+      cd ../backend && npm install
       echo "Build completed successfully!"
     startCommand: cd backend && npm start
     healthCheckPath: /
