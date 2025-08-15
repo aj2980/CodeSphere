@@ -29,7 +29,9 @@ app.set('view engine', 'ejs');
 connectDB();
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: process.env.NODE_ENV === 'production' 
+    ? [process.env.FRONTEND_URL, 'https://your-app-name.onrender.com'] 
+    : "http://localhost:5173",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
@@ -106,6 +108,7 @@ app.use(function (err, req, res, next) {
 
 module.exports = app;
 
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
-});
+// Remove the duplicate listen call since bin/www handles it
+// app.listen(3000, () => {
+//   console.log("Server running on http://localhost:3000");
+// });

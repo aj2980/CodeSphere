@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: codesphere-backend
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: |
+      echo "Installing root dependencies..."
+      npm install
+      echo "Building frontend..."
+      cd frontend && npm install && npm run build
+      echo "Installing backend dependencies..."
+      cd ../backend && npm install
+      echo "Build completed successfully!"
+    startCommand: cd backend && npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: FRONTEND_URL
+        value: https://codesphere.onrender.com
+      - key: PORT
+        value: 10000

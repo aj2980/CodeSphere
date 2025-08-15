@@ -1,13 +1,22 @@
 {
-  "dependencies": {
-    "concurrently": "^9.1.2",
-    "express-generator": "^4.16.1"
-  },
+  "name": "codesphere",
+  "version": "1.0.0",
+  "description": "CodeSphere - AI-powered code analysis platform",
+  "main": "backend/app.js",
   "scripts": {
     "frontend": "cd frontend && npm run dev",
     "backend": "cd backend && nodemon app.js",
     "dev": "concurrently -n frontend,backend -c blue,red \"npm run frontend\" \"npm run backend\"",
-    "build": "npm install --prefix frontend && npm run build --prefix frontend",
-    "start": "node backend/app.js"
+    "build": "npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend",
+    "start": "cd backend && npm start",
+    "install-all": "npm install && cd frontend && npm install && cd ../backend && npm install"
+  },
+  "dependencies": {
+    "concurrently": "^9.1.2",
+    "express-generator": "^4.16.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   }
 }
